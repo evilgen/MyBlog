@@ -7,3 +7,10 @@
 			Создан: <%=@row['created_date']%>
 			<br />
 </p>
+<br />
+<h4>Comments:</h4>
+<form action="/details/<%=@row['id']%>" method="POST">
+	  	<textarea name="content" class="form-control" rows="6" placeholder="Введите текст комментария"></textarea>
+	  	<br />
+	    <button type="submit" class="btn btn-primary">Комментировать</button>
+</form>
