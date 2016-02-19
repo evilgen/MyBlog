@@ -55,7 +55,9 @@ end
 #браузер отправляет страницу на сервер
 
 post '/new' do
+
 #получаем переменную из post-запроса 
+
   content = params[:content]
 
   if content.length <= 0
@@ -63,7 +65,7 @@ post '/new' do
   		return erb :new
   end
 
-  #сщхранение данных в БД
+  #сохранение данных в БД
 
   @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
   
@@ -76,11 +78,36 @@ end
 #вывод информации о посте
 
 get '/details/:post_id' do
+	
+	#получаем переменную из url-ла
+	
 	post_id = params[:post_id]
 
+	#получаем список постов
+	#у нас будет только один конкретный
 	results = @db.execute 'select * from Posts where id = ?', [post_id]
+
+	#выбираем этот один пост в переменную @row
 	@row = results[0]
 
+	#возвращаем представление 
 	erb :details
+
+end
+
+#обработчик post-запроса /details/...
+#браузер отправляет страницу на сервер,а мы их принимаем
+
+post '/details/:post_id' do
+
+	#получаем переменную из url-ла
+	
+	post_id = params[:post_id]
+
+	#получаем переменную из post-запроса 
+
+	content = params[:content]
+
+	erb "You typed comment #{content} for post #{post_id}"
 
 end
