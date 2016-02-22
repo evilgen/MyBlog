@@ -130,7 +130,7 @@ post '/details/:post_id' do
 
 	if content.length <= 0
 	  		@error = "Введите текст комментария"
-	  		break
+	  		redirect to('/details/' + post_id)
 	end
 
   #сохранение данных в БД
